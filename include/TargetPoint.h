@@ -6,6 +6,8 @@ class TargetPoint {
     public:
         int Id;
         Point position;
+
+        TargetPoint(int id, int x, int y);
         void printData() const;
 };
 

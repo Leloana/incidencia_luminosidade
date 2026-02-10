@@ -9,8 +9,10 @@ class Obstacles {
         float reductionFactor;
         Point position;
 
-        virtual void printData() const = 0;
 
+        Obstacles(int id, float rf, int x, int y);
+
+        virtual void printData() const = 0;
         virtual ~Obstacles() {}
 };
 

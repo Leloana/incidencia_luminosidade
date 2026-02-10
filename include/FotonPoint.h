@@ -7,6 +7,8 @@ class FotonPoint {
         int Id;
         float intensity;
         Point position;
+
+        FotonPoint(int id, float intensity, int x, int y);
         void printData() const;
 };
 

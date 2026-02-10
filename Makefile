@@ -4,19 +4,15 @@ INCLUDE_DIR = include
 OBJ_DIR     = obj
 BIN_DIR     = bin
 
-# 2. Nome do executável (agora inclui a pasta bin)
 TARGET_NAME = a.exe
 TARGET      = $(BIN_DIR)/$(TARGET_NAME)
 
-# 3. Compilador e Flags
 CXX      = g++
-# -I$(INCLUDE_DIR) diz ao compilador para procurar .h na pasta include
+
 CXXFLAGS = -Wall -g -O2 -I$(INCLUDE_DIR)
 
-# 4. Lista de Arquivos (Assumindo que os .cpp estão dentro de src/)
-# Se quiser pegar todos automaticamente, use: SRCS = $(wildcard $(SRC_DIR)/*.cpp)
-# Mas vamos manter sua lista manual por segurança, apenas removendo o caminho se ele já estiver lá:
-_SRCS = main.cpp TargetPoint.cpp FotonPoint.cpp Rectangle.cpp Circle.cpp Line.cpp
+# 4. Lista de Fontes
+_SRCS = main.cpp SceneParser.cpp TargetPoint.cpp FotonPoint.cpp Rectangle.cpp Obstacles.cpp Circle.cpp Line.cpp
 # Adiciona o caminho src/ na frente dos nomes
 SRCS = $(addprefix $(SRC_DIR)/, $(_SRCS))
 
