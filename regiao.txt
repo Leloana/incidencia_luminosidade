@@ -1,0 +1,4 @@
+R 1 2 3 4 5 6
+I love to play games
+B I love reading
+CI have 2 books
