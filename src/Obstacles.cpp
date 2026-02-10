@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Obstacles::Obstacles (int id, float rf, int x, int y) 
+Obstacles::Obstacles (int id, int rf, double x, double y) 
     : Id(id)
 {
     this->reductionFactor = rf;

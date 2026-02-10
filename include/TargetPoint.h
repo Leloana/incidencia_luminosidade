@@ -6,9 +6,10 @@ class TargetPoint {
     public:
         int Id;
         Point position;
+        double totalLuminosity; 
 
-        TargetPoint(int id, int x, int y);
-        void printData() const;
+        TargetPoint(int id, double x, double y);
+        void printData(std::ostream& os) const;
 };
 
 #endif

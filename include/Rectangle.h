@@ -8,8 +8,9 @@ class Rectangle : public Obstacles {
         int width;
         int height;
 
-        Rectangle(int id, float rf, int x, int y, int w, int h);
-        void printData() const override;
+        Rectangle(int id, int rf, double x, double y, int w, int h);
+        int countIntersections(Point p1, Point p2) const override;
+        void printData(std::ostream& os) const override;
 };
 
 #endif

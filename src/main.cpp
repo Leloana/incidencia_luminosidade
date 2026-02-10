@@ -6,46 +6,53 @@
 // https://www.w3schools.com/cpp/cpp_list.asp - Listas
 
 #include <iostream>
-#include <list>
+#include <fstream>
+#include <vector>
 
-#include "../include/SceneLoader.h" 
+#include "../include/SceneParser.h" 
 
 using namespace std;
-
-// Função auxiliar para limpar memória (opcional, mas deixa a main mais limpa ainda)
-template <typename T>
-void clearList(list<T*>& lst) {
-    for (auto item : lst) {
-        delete item;
-    }
-    lst.clear();
-}
 
 int main() {
     cout << "# Teste Programador C++ - Incidencia de Luminosidade #" << endl;
 
-    // 1. Criação das Listas
-    list<Obstacles*> obstaclesList;
-    list<FotonPoint*> fotonList;
-    list<TargetPoint*> targetPointList;
+    vector<Obstacles*> obstaclesList;
+    vector<FotonPoint*> fotonList;
+    vector<TargetPoint*> targetPointList;
 
-    // 2. Carregamento (Delegação para o SceneLoader)
-    SceneLoader::load("../regiao.txt", obstaclesList, fotonList, targetPointList);
+    SceneParser::load("../regiao.txt", obstaclesList, fotonList, targetPointList);
 
-    // 3. Uso dos dados
-    cout << "================ Dados dos Obstaculos ================" << endl;
-    for (auto obs : obstaclesList) obs->printData(); 
+    string CaminhoCheckInput = "../output/check_input.txt";
+    ofstream check_input(CaminhoCheckInput); 
 
-    cout << "================ Dados dos FotonPoints ================" << endl;
-    for (auto foton : fotonList) foton->printData(); 
+    if (!check_input.is_open()) {
+        cerr << "Erro: Nao foi possivel criar o arquivo em " << CaminhoCheckInput << endl;
+        cerr << "Verifique se a pasta 'output' existe na raiz do projeto." << endl;
+        return 1;
+    }
 
-    cout << "================ Dados dos Pontos Alvo ================" << endl;
-    for(auto target : targetPointList) target->printData(); 
+    for (auto obs : obstaclesList) obs->printData(check_input); 
+    for (auto foton : fotonList) foton->printData(check_input); 
+    for(auto target : targetPointList) target->printData(check_input); 
+    
+    check_input.close();  
+    cout << "Arquivo de check_input gerado com sucesso em: " << CaminhoCheckInput << endl;
 
-    // 4. Limpeza de Memória
-    clearList(obstaclesList);
-    clearList(fotonList);
-    clearList(targetPointList);
+    SceneParser::runCalculations(targetPointList, fotonList, obstaclesList);
+
+    string caminhoSaida = "../output/saida.txt";
+    ofstream saida(caminhoSaida); 
+
+    if (!saida.is_open()) {
+        cerr << "Erro: Nao foi possivel criar o arquivo em " << caminhoSaida << endl;
+        cerr << "Verifique se a pasta 'output' existe na raiz do projeto." << endl;
+        return 1;
+    }
+    
+    SceneParser::printResults(saida, targetPointList);
+
+    cout << "Arquivo de saida gerado com sucesso em: " << caminhoSaida << endl;
+    
 
     return 0;
 }

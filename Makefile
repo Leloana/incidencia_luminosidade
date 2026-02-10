@@ -12,7 +12,7 @@ CXX      = g++
 CXXFLAGS = -Wall -g -O2 -I$(INCLUDE_DIR)
 
 # 4. Lista de Fontes
-_SRCS = main.cpp SceneParser.cpp TargetPoint.cpp FotonPoint.cpp Rectangle.cpp Obstacles.cpp Circle.cpp Line.cpp
+_SRCS = main.cpp SceneParser.cpp Geometry.cpp TargetPoint.cpp FotonPoint.cpp Rectangle.cpp Obstacles.cpp Circle.cpp Line.cpp
 # Adiciona o caminho src/ na frente dos nomes
 SRCS = $(addprefix $(SRC_DIR)/, $(_SRCS))
 

@@ -6,8 +6,9 @@ class Line : public Obstacles {
     public:
         Point endPosition;
 
-        Line(int id, float rf, int x, int y, int endX, int endY);
-        void printData() const override;
+        Line(int id, int rf, double x, double y, double endX, double endY);
+        int countIntersections(Point p1, Point p2) const override;
+        void printData(std::ostream& os) const override;
 };
 
 #endif

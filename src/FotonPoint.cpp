@@ -2,13 +2,13 @@
 #include "../include/FotonPoint.h"
 using namespace std;
 
-FotonPoint::FotonPoint(int id, float intensity, int x, int y)
+FotonPoint::FotonPoint(int id, double intensity, double x, double y)
     : Id(id), intensity(intensity)
 {
     this->position.x = x;
     this->position.y = y;
 }
 
-void FotonPoint::printData() const{
-    cout << "FotonPoint: " << Id << " " << intensity << " " << position.x << " " << position.y << endl;
+void FotonPoint::printData(std::ostream& os) const{
+    os << "F " << Id << " " << intensity << " " << position.x << " " << position.y << endl;
 }

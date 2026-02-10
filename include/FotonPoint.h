@@ -5,11 +5,11 @@
 class FotonPoint {
     public:
         int Id;
-        float intensity;
+        double intensity;
         Point position;
 
-        FotonPoint(int id, float intensity, int x, int y);
-        void printData() const;
+        FotonPoint(int id, double intensity, double x, double y);
+        void printData(std::ostream& os) const;
 };
 
 #endif
