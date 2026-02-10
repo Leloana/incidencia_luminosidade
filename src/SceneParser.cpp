@@ -80,7 +80,9 @@ void SceneParser::runCalculations(vector<TargetPoint*>& targets, vector<FotonPoi
 
             for (size_t k = 0; k < obstacles.size(); ++k) {
                 int crossings = obstacles[k]->countIntersections(fotons[j]->position, targets[i]->position);
-
+                cout << "Target P" << targets[i]->Id << " - Foton F" << fotons[j]->Id 
+                     << " - Obstaculo O" << obstacles[k]->Id 
+                     << " - Intersecoes: " << crossings << endl;
                 for (int c = 0; c < crossings; ++c) {
                     // Cálculo do Fator de Redução (RF)
                     double rf = 1.0 - (obstacles[k]->reductionFactor / 100.0);
@@ -89,7 +91,6 @@ void SceneParser::runCalculations(vector<TargetPoint*>& targets, vector<FotonPoi
                     
                 }
             }
-            // Verifica se o valor final faz sentido (não é negativo ou infinito)
             targets[i]->totalLuminosity += currentIntensity;
         }
     }

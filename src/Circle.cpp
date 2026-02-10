@@ -38,7 +38,7 @@ int Circle::countIntersections(Point p1, Point p2) const {
     double t1 = (-b - disc) / (2 * a), t2 = (-b + disc) / (2 * a);
     if (abs(t1 - t2) < 1e-5) { 
     // Se t1 e t2 são iguais, é uma tangente, conta apenas 1 hit se estiver no segmento
-    if (t1 >= 0 && t1 <= 1) return 1;
+        if (t1 >= 0 && t1 <= 1) return 1;
         return 0;
     }
     int hits = 0;
