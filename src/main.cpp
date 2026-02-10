@@ -11,79 +11,14 @@
 #include <sstream> //string stream para quebrar string
 #include <list>
 
+#include "../include/Obstacles.h"
+#include "../include/Rectangle.h"
+#include "../include/Circle.h"
+#include "../include/Line.h"
+#include "../include/FotonPoint.h"
+#include "../include/TargetPoint.h"
+
 using namespace std;
-
-class Point {
-    public:
-        int x;
-        int y;
-};
-
-class Obstacles {
-    public:
-        int Id;
-        float reductionFactor;
-        Point position;
-
-        virtual void printData() const = 0;
-
-        virtual ~Obstacles() {}
-};
-
-class Rectangle : public Obstacles {
-    public:
-        int width;
-        int height;
-        void printData() const override;
-};
-
-class Circle : public Obstacles {
-    public:
-        int radius;
-        void printData() const override;
-};
-
-class Line : public Obstacles {
-    public:
-        Point endPosition;
-        void printData() const override;
-};
-
-class Foton {
-    public:
-        int Id;
-        float intensity;
-        Point position;
-        void printData() const;
-};
-
-class TargetPoint {
-    public:
-        int Id;
-        Point position;
-        void printData() const;
-};
-
-void Rectangle::printData() const{
-    cout << "Rectangle: " << Id << " " << reductionFactor << " " << position.x << " " << position.y << " " << width << " " << height << endl;
-}
-
-void Circle::printData() const{
-    cout << "Circle: " << Id << " " << reductionFactor << " " << position.x << " " << position.y << " " << radius << endl;
-}
-
-void Line::printData() const{
-    cout << "Line: " << Id << " " << reductionFactor << " " << position.x << " " << position.y << " " << endPosition.x << " " << endPosition.y << endl;
-}
-
-void Foton::printData() const{
-    cout << "Foton: " << Id << " " << intensity << " " << position.x << " " << position.y << endl;
-}
-
-void TargetPoint::printData() const{
-    cout << "TargetPoint: " << Id << " " << position.x << " " << position.y << endl;
-}
-
 
 int main() {
     cout << "# Teste Programador C++ - Incidenciade Luminosidade #" << endl;
@@ -92,10 +27,10 @@ int main() {
     // MyFile << "Files can be tricky, but it is fun enough!"; //escreve no arquivo
     // MyFile.close(); //fecha o arquivo
     list <Obstacles*> obstaclesList;
-    list <Foton*> fotonList;
+    list <FotonPoint*> fotonList;
     list <TargetPoint*> targetPointList;
     // e quebrando a linha em palavras usando stringstream
-    ifstream MyReadFile("regiao.txt");
+    ifstream MyReadFile("../regiao.txt");
     string line; 
     string word;
 
@@ -134,7 +69,7 @@ int main() {
             obstaclesList.push_back(line);
         } else if(word == "F") {
             // Processar linha de fonte de luz
-            Foton* foton = new Foton();
+            FotonPoint* foton = new FotonPoint();
             ss >> foton->Id;
             ss >> foton->intensity;
             ss >> foton->position.x;
@@ -156,8 +91,8 @@ int main() {
         obs->printData(); 
     }
 
-    cout << "================ Dados dos Fotons ================" << endl;
-    for (Foton* foton : fotonList) {
+    cout << "================ Dados dos FotonPoints ================" << endl;
+    for (FotonPoint* foton : fotonList) {
         foton->printData(); 
     }
 
@@ -169,7 +104,7 @@ int main() {
     for (Obstacles* obs : obstaclesList) {
         delete obs; 
     }
-    for(Foton* foton : fotonList) {
+    for(FotonPoint* foton : fotonList) {
         delete foton; 
     }
     for(TargetPoint* targetPoint : targetPointList) {
