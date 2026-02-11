@@ -65,6 +65,7 @@ R 0 10 1 1 1 1    # Retângulo (ID, RF, X, Y, Altura, Largura)
 C 1 20 5 5 5      # Círculo (ID, RF, X, Y, Raio)
 F 0 100 1 1       # Fóton (ID, Intensidade, X, Y)
 P 0 2 2           # Ponto Alvo (ID, X, Y)
+```
 
 ## 🛠️ Como Compilar e Executar
 
@@ -77,18 +78,22 @@ Abra o terminal na pasta raiz do projeto e execute o comando correspondente ao s
 **Para Linux / macOS:**
 ```bash
 make
+```
 
 **Para Windows (via MinGW):**
 ```bash
 mingw32-make
+```
 
 ### 2. Executando o Simulador
-Após a compilação, um executável será gerado na pasta do projeto. Para rodar a simulação, execute o programa(certifique-se de ter o arquivo regiao.txt na raiz):
+Após a compilação, um executável será gerado na pasta do projeto. Para rodar a simulação navegue para a pasta bin (cd bin) e execute o programa(certifique-se de ter o arquivo regiao.txt na raiz):
 
 **Para Linux / macOS:**
-```./simulador_luz
-make
+```bash
+./simulador_luz
+```
 
 **Para Windows (via MinGW):**
-```simulador_luz.exe
-mingw32-make
+```bash
+simulador_luz.exe
+```
