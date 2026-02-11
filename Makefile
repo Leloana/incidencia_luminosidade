@@ -4,7 +4,7 @@ INCLUDE_DIR = include
 OBJ_DIR     = obj
 BIN_DIR     = bin
 
-TARGET_NAME = a.exe
+TARGET_NAME = simulador_luz.exe
 TARGET      = $(BIN_DIR)/$(TARGET_NAME)
 
 CXX      = g++

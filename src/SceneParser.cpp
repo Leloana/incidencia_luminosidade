@@ -10,6 +10,12 @@
 
 using namespace std;
 
+/**
+ * @file SceneParser.cpp
+ * @brief Implementação dos métodos do módulo de parser de cena.
+ * * Veja detalhes da interface e documentação dos parâmetros no arquivo SceneParser.h.
+ */
+
 void SceneParser::load(const string& filePath, 
                        vector<Obstacles*>& obstaclesList, 
                        vector<FotonPoint*>& fotonList, 
@@ -30,26 +36,23 @@ void SceneParser::load(const string& filePath,
         
         stringstream ss(line);
         ss >> word; 
-
+        // Ao ler a primeira palavra, identificamos o tipo de objeto e extraímos os parâmetros correspondentes para criar as instâncias corretas, armazenando-as nos vetores apropriados.
         if(word == "R") {
             int id, x, y, h, w;
             int rf;
             ss >> id >> rf >> x >> y >> h >> w;
-            // double reductionFactor = 1.0 - (rf / 100.0);
             obstaclesList.push_back(new Rectangle(id, rf, (double)x, (double)y, w, h));
 
         } else if(word == "C") {
             int id, x, y, r;
             int rf;
             ss >> id >> rf >> x >> y >> r;
-            // double reductionFactor = 1.0 - (rf / 100.0);
             obstaclesList.push_back(new Circle(id, rf, (double)x, (double)y, r));
 
         } else if(word == "L") {
             int id, x, y, endX, endY;
             int rf;
             ss >> id >> rf >> x >> y >> endX >> endY;
-            // double reductionFactor = 1.0 - (rf / 100.0);
             obstaclesList.push_back(new Line(id, rf, (double)x, (double)y, (double)endX, (double)endY));
 
         } else if(word == "F") {
@@ -73,16 +76,16 @@ void SceneParser::load(const string& filePath,
 }
 
 void SceneParser::runCalculations(vector<TargetPoint*>& targets, vector<FotonPoint*>& fotons, vector<Obstacles*>& obstacles) {
+    // Para cada alvo analisamos cada foton, e para cada foton analisamos cada obstaculo
     for (size_t i = 0; i < targets.size(); ++i) {
         for (size_t j = 0; j < fotons.size(); ++j) {
 
             double currentIntensity = fotons[j]->intensity;
 
             for (size_t k = 0; k < obstacles.size(); ++k) {
+                // Crossings sao as intersecoes entre o raio de luz (do foton ao alvo) e o obstaculo, podendo ser 0, 1 ou 2 dependendo do tipo de obstaculo e da trajetória do raio
                 int crossings = obstacles[k]->countIntersections(fotons[j]->position, targets[i]->position);
-                cout << "Target P" << targets[i]->Id << " - Foton F" << fotons[j]->Id 
-                     << " - Obstaculo O" << obstacles[k]->Id 
-                     << " - Intersecoes: " << crossings << endl;
+                // Como a luz decai a cada obstaculo deveremos fazer o calculo do fator de redução (RF) para cada crossing detectado, multiplicando a intensidade atual pela redução percentual do obstaculo.
                 for (int c = 0; c < crossings; ++c) {
                     // Cálculo do Fator de Redução (RF)
                     double rf = 1.0 - (obstacles[k]->reductionFactor / 100.0);
@@ -97,18 +100,21 @@ void SceneParser::runCalculations(vector<TargetPoint*>& targets, vector<FotonPoi
 }
 
 void SceneParser::printResults(ostream& os, const vector<TargetPoint*>& targets) {
+    //Vetor que ordenará os pontos garantindo o print correto
     vector<TargetPoint> sortedTargets;
 
-    sortedTargets.reserve(targets.size());
+    sortedTargets.reserve(targets.size());//aloca
 
+    // Copia os dados dos ponteiros para o vetor de objetos, facilitando a ordenação por ID
     for (const auto& targetPtr : targets) {
         sortedTargets.push_back(*targetPtr);
     }
-    
+    // Ordena os pontos por ID
     sort(sortedTargets.begin(), sortedTargets.end(), [](const TargetPoint& a, const TargetPoint& b) {
         return a.Id < b.Id;
     });
 
+    // Print final
     os << fixed << setprecision(2);
     for (size_t i = 0; i < sortedTargets.size(); ++i) {
         os << "P" << sortedTargets[i].Id << " = " << sortedTargets[i].totalLuminosity << endl;

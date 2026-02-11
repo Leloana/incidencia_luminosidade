@@ -2,6 +2,12 @@
 #include "../include/TargetPoint.h"
 using namespace std;
 
+/**
+ * @file TargetPoint.cpp
+ * @brief Implementação dos métodos do módulo de pontos-alvo.
+ * * Veja detalhes da interface e documentação dos parâmetros no arquivo TargetPoint.h.
+ */
+
 TargetPoint::TargetPoint(int id, double x, double y)
     : Id(id)
 {

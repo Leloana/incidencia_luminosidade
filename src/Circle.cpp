@@ -3,6 +3,11 @@
 #include "../include/Geometry.h"
 
 using namespace std;
+/**
+ * @file Circle.cpp
+ * @brief Implementação dos métodos do obstáculo circular.
+ * * Veja detalhes da interface e documentação dos parâmetros no arquivo Circle.h.
+ */
 
 Circle::Circle(int id, int rf, double x, double y, int r)
     : Obstacles(id, rf, x, y) 
@@ -19,9 +24,14 @@ void Circle::printData(std::ostream& os) const{
 
 // Utiliza a equação quadrática para encontrar interseções entre o segmento e a circunferência
 int Circle::countIntersections(Point p1, Point p2) const {
-    // Vetores diretores e diferença em relação ao centro do círculo
-    double dx = p2.x - p1.x, dy = p2.y - p1.y;
-    double fx = p1.x - position.x, fy = p1.y - position.y;
+    
+
+    // distancia entre o ponto p1 e seu alvo p2
+    double dx = p2.x - p1.x;
+    double dy = p2.y - p1.y;
+    //distancia entre p1 e o centro da circunferencia
+    double fx = p1.x - position.x;
+    double fy = p1.y - position.y;
 
     // Coeficientes da equação at² + bt + c = 0 (interseção linha-esfera)
     double a = dx * dx + dy * dy;
@@ -32,10 +42,11 @@ int Circle::countIntersections(Point p1, Point p2) const {
     double disc = b * b - 4 * a * c;
     if (disc < 0) return 0; // Nenhuma interseção real
 
-    disc = std::sqrt(disc);
+    disc = sqrt(disc);
     
     // t representa a posição relativa no segmento (0 <= t <= 1)
-    double t1 = (-b - disc) / (2 * a), t2 = (-b + disc) / (2 * a);
+    double t1 = (-b - disc) / (2 * a);
+    double t2 = (-b + disc) / (2 * a);
     if (abs(t1 - t2) < 1e-5) { 
     // Se t1 e t2 são iguais, é uma tangente, conta apenas 1 hit se estiver no segmento
         if (t1 >= 0 && t1 <= 1) return 1;

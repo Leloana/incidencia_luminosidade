@@ -5,9 +5,13 @@
 // https://www.w3schools.com/cpp/cpp_classes.asp - Classes e objetos
 // https://www.w3schools.com/cpp/cpp_list.asp - Listas
 
+//https://en.wikipedia.org/wiki/Triangle_inequality - Desigualdade triangular
+//https://stackoverflow.com/questions/26315401/explanation-of-ccw-algorithm - ccw
+
 #include <iostream>
 #include <fstream>
 #include <vector>
+
 
 #include "../include/SceneParser.h" 
 
